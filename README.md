@@ -2,6 +2,7 @@
 
 Proyecto Final Integrador – Programación Avanzada (Grupo 7).
 Integrantes: Sebastián Quidel, Daniel Retamal, Luis Vázquez.
+Repositorio: https://github.com/leufucorestaurant-prog/comparacion-internacional-emisiones
 
 **Pregunta:** ¿Cómo se comparan las emisiones de CO₂ totales, per cápita y por
 unidad de PIB entre países entre 1990 y 2024, y qué posición ocupa Chile frente
