@@ -1,0 +1,38 @@
+country,year,variable,valor
+Brunei,1947,co2_per_capita,117.806
+Brunei,1949,co2_per_capita,245.081
+Curacao,1954,co2_per_capita,115.662
+Curacao,1956,co2_per_capita,117.212
+Curacao,1976,co2_per_capita,117.284
+Kuwait,1991,co2_per_capita,364.791
+Qatar,1963,co2_per_capita,121.707
+Qatar,1964,co2_per_capita,110.212
+Sint Maarten (Dutch part),1950,co2_per_capita,463.708
+Sint Maarten (Dutch part),1951,co2_per_capita,682.203
+Sint Maarten (Dutch part),1952,co2_per_capita,371.757
+Sint Maarten (Dutch part),1953,co2_per_capita,408.74
+Sint Maarten (Dutch part),1954,co2_per_capita,782.743
+Sint Maarten (Dutch part),1955,co2_per_capita,610.668
+Sint Maarten (Dutch part),1956,co2_per_capita,741.272
+Sint Maarten (Dutch part),1957,co2_per_capita,475.291
+Sint Maarten (Dutch part),1958,co2_per_capita,390.174
+Sint Maarten (Dutch part),1959,co2_per_capita,471.248
+Sint Maarten (Dutch part),1960,co2_per_capita,376.498
+Sint Maarten (Dutch part),1961,co2_per_capita,359.691
+Sint Maarten (Dutch part),1962,co2_per_capita,359.877
+Sint Maarten (Dutch part),1963,co2_per_capita,313.931
+Sint Maarten (Dutch part),1964,co2_per_capita,278.928
+Sint Maarten (Dutch part),1965,co2_per_capita,229.376
+Sint Maarten (Dutch part),1966,co2_per_capita,197.132
+Sint Maarten (Dutch part),1967,co2_per_capita,223.414
+Sint Maarten (Dutch part),1968,co2_per_capita,191.425
+Sint Maarten (Dutch part),1969,co2_per_capita,231.809
+Sint Maarten (Dutch part),1970,co2_per_capita,240.455
+Sint Maarten (Dutch part),1971,co2_per_capita,194.977
+Sint Maarten (Dutch part),1972,co2_per_capita,176.466
+Sint Maarten (Dutch part),1973,co2_per_capita,182.515
+Sint Maarten (Dutch part),1974,co2_per_capita,154.259
+Sint Maarten (Dutch part),1975,co2_per_capita,104.357
+Sint Maarten (Dutch part),1976,co2_per_capita,208.617
+Sint Maarten (Dutch part),1977,co2_per_capita,102.164
+Kuwait,1991,co2_per_gdp,82.599

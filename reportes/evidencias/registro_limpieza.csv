@@ -1,0 +1,9 @@
+etapa,criterio,filas_afectadas,justificacion
+Limpieza,Nombres de país con sufijo de OWID unificados,349,Sufijos como '(country)' o '(Dutch part)' no agregan información y dificultan las uniones con otras fuentes.
+Identificadores,iso_code recuperado para Kosovo (XKX),174,"Kosovo es un país, no un agregado; sin código se eliminaría junto con las regiones."
+Limpieza,Agregados sin iso_code (35 entidades),7757,"World, continentes, grupos de ingreso y versiones '(GCP)' suman países que ya están en el conjunto; incluirlos duplicaría emisiones en rankings y totales."
+Limpieza,Años fuera de 1990-2024,34989,"Antes de 1990 la cobertura es baja (41,7 % de nulos en co2) y no hay emisiones por consumo; el análisis compara 1990-2024."
+Duplicados,Filas idénticas,0,Una fila repetida contaría dos veces las mismas emisiones.
+Duplicados,Claves país-año repetidas,0,Cada país debe tener un solo registro por año.
+Fuera de rango,co2_per_capita > 100 t (Kuwait 1991): indicadores relativos a nulo,1,"Kuwait 1991 refleja los incendios petroleros de la Guerra del Golfo (365 t/persona, 82,6 kg/USD). La emisión total se conserva, pero los indicadores per cápita y por PIB se excluyen."
+Nulos,Filas sin co2,126,"Sin la variable principal la fila no sirve para comparar (Monaco, San Marino, Vatican, Christmas Island...). Monaco, San Marino y Vaticano se reportan dentro de Francia e Italia."

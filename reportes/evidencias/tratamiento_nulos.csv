@@ -1,0 +1,13 @@
+variable,nulos_iniciales,estrategia,justificacion,nulos_finales
+co2,126,Eliminar registros,"Variable principal; imputarla inventaría emisiones. Monaco, San Marino y Vaticano están incluidos en Francia/Italia.",0
+share_global_co2,126,Eliminar registros (junto con co2),Sus nulos coinciden con las filas sin co2.,0
+cumulative_co2,126,Eliminar registros (junto con co2),Sus nulos coinciden con las filas sin co2.,0
+coal_co2,2888,Imputar 0 si co2 = suma del resto (2761 filas),"El total ya cuadra sin este combustible: el país no lo usa. Si no cuadra, se mantiene nulo (no se imputa sin evidencia).",1
+oil_co2,188,Imputar 0 si co2 = suma del resto (62 filas),"El total ya cuadra sin este combustible: el país no lo usa. Si no cuadra, se mantiene nulo (no se imputa sin evidencia).",0
+gas_co2,3408,Imputar 0 si co2 = suma del resto (3281 filas),"El total ya cuadra sin este combustible: el país no lo usa. Si no cuadra, se mantiene nulo (no se imputa sin evidencia).",1
+population,66,Interpolar huecos internos (0 filas); mantener nulo si el país no tiene datos,"Los nulos restantes son Antártica e Isla de Navidad, sin población permanente registrada: el nulo tiene significado y no se inventa una población.",66
+co2_per_capita,193,Recalcular co2 / population donde sea posible (0 filas); resto nulo,Es una razón de dos variables; los nulos restantes son los países sin población y Kuwait 1991 (atípico anulado).,67
+gdp,2255,Mantener nulo,OWID publica PIB solo hasta 2022 y no para algunos territorios; imputar PIB futuro sería un pronóstico.,2130
+co2_per_gdp,2257,Recalcular co2 / gdp donde sea posible (0 filas); resto nulo,Depende del PIB: donde no hay PIB (2023-2024) el indicador no existe.,2131
+consumption_co2,3601,Mantener nulo,OWID solo estima emisiones de consumo para países con tablas de comercio; el nulo significa 'no estimado'.,3476
+total_ghg,585,Interpolar huecos internos (0 filas); mantener nulo,"Los nulos son territorios completos sin inventario de GEI (Groenlandia, Bermudas, etc.): no hay base para estimarlos. Es una variable complementaria.",585

@@ -1,0 +1,116 @@
+﻿Carga realizada: 50411 filas y 79 columnas en el archivo original.
+
+=== Diagnóstico de calidad: conjunto original (15 variables) ===
+  filas: 50411
+  columnas: 15
+  valores_nulos: 319164
+  filas_duplicadas: 0
+  claves_repetidas: 0
+  valores_fuera_de_rango: 37
+  filas_con_valores_fuera_de_rango: 36
+
+  Detalle por columna:
+                     tipo  nulos  porcentaje_nulos  fuera_de_rango
+country               str      0              0.00               0
+year                int64      0              0.00               0
+iso_code              str   7931             15.73               0
+population        float64   9244             18.34               0
+gdp               float64  35160             69.75               0
+co2               float64  21027             41.71               0
+co2_per_capita    float64  23902             47.41              36
+co2_per_gdp       float64  32883             65.23               1
+share_global_co2  float64  22848             45.32               0
+cumulative_co2    float64  22848             45.32               0
+coal_co2          float64  28486             56.51               0
+oil_co2           float64  24952             49.50               0
+gas_co2           float64  32264             64.00               0
+consumption_co2   float64  45358             89.98               0
+total_ghg         float64  12261             24.32               0
+
+=== Limpieza ===
+  - Limpieza: Nombres de país con sufijo de OWID unificados -> 349 filas
+  - Identificadores: iso_code recuperado para Kosovo (XKX) -> 174 filas
+  - Limpieza: Agregados sin iso_code (35 entidades) -> 7757 filas
+  - Limpieza: Años fuera de 1990-2024 -> 34989 filas
+  - Duplicados: Filas idénticas -> 0 filas
+  - Duplicados: Claves país-año repetidas -> 0 filas
+  - Fuera de rango: co2_per_capita > 100 t (Kuwait 1991): indicadores relativos a nulo -> 1 filas
+  Agregados eliminados: ['Africa', 'Africa (GCP)', 'Asia', 'Asia (GCP)', 'Asia (excl. China and India)', 'Central America (GCP)', 'Europe', 'Europe (GCP)', 'Europe (excl. EU-27)', 'Europe (excl. EU-28)', 'European Union (27)', 'European Union (28)', 'High-income countries', 'International aviation', 'International shipping', 'Kuwaiti Oil Fires', 'Kuwaiti Oil Fires (GCP)', 'Least developed countries (Jones et al.)', 'Low-income countries', 'Lower-middle-income countries', 'Middle East (GCP)', 'Non-OECD (GCP)', 'North America', 'North America (GCP)', 'North America (excl. USA)', 'OECD (GCP)', 'OECD (Jones et al.)', 'Oceania', 'Oceania (GCP)', 'Ryukyu Islands', 'Ryukyu Islands (GCP)', 'South America', 'South America (GCP)', 'Upper-middle-income countries', 'World']
+  Conjunto tras limpieza: (7665, 19)
+
+=== Tratamiento de nulos ===
+  - Nulos: Filas sin co2 -> 126 filas
+  variable         iniciales  finales  estrategia
+  co2                    126        0  Eliminar registros
+  share_global_co2       126        0  Eliminar registros (junto con co2)
+  cumulative_co2         126        0  Eliminar registros (junto con co2)
+  coal_co2              2888        1  Imputar 0 si co2 = suma del resto (2761 filas)
+  oil_co2                188        0  Imputar 0 si co2 = suma del resto (62 filas)
+  gas_co2               3408        1  Imputar 0 si co2 = suma del resto (3281 filas)
+  population              66       66  Interpolar huecos internos (0 filas); mantener nulo si el país no tiene datos
+  co2_per_capita         193       67  Recalcular co2 / population donde sea posible (0 filas); resto nulo
+  gdp                   2255     2130  Mantener nulo
+  co2_per_gdp           2257     2131  Recalcular co2 / gdp donde sea posible (0 filas); resto nulo
+  consumption_co2       3601     3476  Mantener nulo
+  total_ghg              585      585  Interpolar huecos internos (0 filas); mantener nulo
+
+=== Transformaciones ===
+  Variables nuevas (9): ['fecha', 'decada', 'poblacion_millones', 'pib_per_capita_usd', 'pct_carbon', 'combustible_principal', 'tramo_co2_per_capita', 'grupo_comparacion', 'variacion_co2_vs_1990_pct']
+
+=== Validación del conjunto final ===
+  [OK] Columnas: todas presentes
+  [OK] Tipos: tipos correctos
+  [OK] Rangos: 0 valores fuera de rango
+  [OK] Clave única: 0 claves ['pais', 'anio'] repetidas
+  [OK] Obligatorias: sin nulos en variables obligatorias
+
+=== Diagnóstico de calidad: conjunto limpio ===
+  filas: 7539
+  columnas: 25
+  valores_nulos: 10936
+  filas_duplicadas: 0
+  claves_repetidas: 0
+  valores_fuera_de_rango: 0
+  filas_con_valores_fuera_de_rango: 0
+
+  Detalle por columna:
+                                     tipo  nulos  porcentaje_nulos  fuera_de_rango
+pais                             category      0              0.00               0
+iso_code                         category      0              0.00               0
+anio                                int64      0              0.00               0
+fecha                      datetime64[us]      0              0.00               0
+decada                              int64      0              0.00               0
+grupo_comparacion                category      0              0.00               0
+poblacion                           Int64     66              0.88               0
+poblacion_millones                float64     66              0.88               0
+pib_usd_ppa                       float64   2130             28.25               0
+pib_per_capita_usd                float64   2130             28.25               0
+co2_mt                            float64      0              0.00               0
+co2_per_capita_t                  float64     67              0.89               0
+tramo_co2_per_capita             category      0              0.00               0
+co2_por_pib_kg_usd                float64   2131             28.27               0
+participacion_global_pct          float64      0              0.00               0
+co2_acumulado_mt                  float64      0              0.00               0
+variacion_co2_vs_1990_pct         float64    224              2.97               0
+co2_carbon_mt                     float64      1              0.01               0
+co2_petroleo_mt                   float64      0              0.00               0
+co2_gas_mt                        float64      1              0.01               0
+pct_carbon                        float64     59              0.78               0
+combustible_principal            category      0              0.00               0
+co2_consumo_mt                    float64   3476             46.11               0
+gei_total_mt_co2e                 float64    585              7.76               0
+valor_atipico                        bool      0              0.00               0
+
+Dataset limpio exportado en datos\procesados\dataset_limpio.csv (7539 filas x 25 columnas).
+
+=== Comparación antes y después ===
+              indicador  antes  despues
+                  Filas  50411     7539
+               Columnas     15       25
+          Valores nulos 319164    10936
+       Filas duplicadas      0        0
+ Valores fuera de rango     37        0
+Variables transformadas      0       14
+       Variables nuevas      0       10
+  Variables nuevas: ['fecha', 'decada', 'grupo_comparacion', 'poblacion_millones', 'pib_per_capita_usd', 'tramo_co2_per_capita', 'variacion_co2_vs_1990_pct', 'pct_carbon', 'combustible_principal', 'valor_atipico']
+Evidencias guardadas en reportes\evidencias/
