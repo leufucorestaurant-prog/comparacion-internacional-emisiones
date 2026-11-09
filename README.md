@@ -37,6 +37,11 @@ El programa usa solo rutas relativas. Al terminar genera:
 - `datos/procesados/dataset_limpio.csv`: conjunto limpio y validado.
 - `reportes/evidencias/*.csv`: diagnóstico inicial y final, registro de
   limpieza, tratamiento de nulos y comparación antes/después.
+- `resultados/estadisticas.csv`: estadísticas descriptivas (n, media, mediana,
+  mínimo, máximo, rango, desviación estándar, cuartiles).
+- `resultados/frecuencias.csv`: frecuencias de las variables categóricas.
+- `resultados/indicadores.csv`: diez indicadores con método e interpretación.
+- `resultados/graficos/grafico_01.png` a `grafico_05.png`: gráficos del análisis.
 
 Si alguna validación falla, el programa se detiene y no exporta el archivo.
 
@@ -45,6 +50,7 @@ Si alguna validación falla, el programa se detiene y no exporta el archivo.
 ```
 Datos originales → Carga → Diagnóstico → Limpieza → Tratamiento de nulos
 → Transformaciones → Validación → Exportación
+→ Estadísticas descriptivas → Indicadores → Gráficos
 ```
 
 | Archivo                   | Responsabilidad                                |
@@ -53,6 +59,9 @@ Datos originales → Carga → Diagnóstico → Limpieza → Tratamiento de nulo
 | `src/limpieza.py`         | Nulos, duplicados y normalización              |
 | `src/transformaciones.py` | Conversión y creación de variables             |
 | `src/validaciones.py`     | Diagnóstico y comprobación de columnas, tipos y rangos |
+| `src/estadisticas.py`     | Estadísticas descriptivas y frecuencias        |
+| `src/indicadores.py`      | Indicadores automatizados del proyecto         |
+| `src/visualizaciones.py`  | Gráficos con Matplotlib Pyplot (PNG)           |
 | `main.py`                 | Ejecución ordenada del pipeline                |
 
 ## Principales decisiones
@@ -72,3 +81,14 @@ Datos originales → Carga → Diagnóstico → Limpieza → Tratamiento de nulo
 
 - `reportes/avance_1.pdf`: definición del problema y carga inicial.
 - `reportes/avance_2.pdf`: limpieza, nulos, transformaciones y validación.
+- `reportes/avance_3.pdf`: estadística descriptiva, indicadores y gráficos.
+
+## Gráficos (Avance 3)
+
+| Archivo          | Tipo         | Contenido                                            |
+|------------------|--------------|------------------------------------------------------|
+| `grafico_01.png` | Barras       | Los 10 mayores emisores de CO₂ en 2024               |
+| `grafico_02.png` | Líneas       | CO₂ per cápita de Chile vs pares, OCDE y mundo       |
+| `grafico_03.png` | Dispersión   | PIB per cápita vs CO₂ per cápita (2022)              |
+| `grafico_04.png` | Caja         | Distribución del CO₂ per cápita por grupo (2024)     |
+| `grafico_05.png` | Área apilada | CO₂ de Chile por combustible, 1990–2024              |
