@@ -1,4 +1,4 @@
-﻿Carga realizada: 50411 filas y 79 columnas en el archivo original.
+Carga realizada: 50411 filas y 79 columnas en el archivo original.
 
 === Diagnóstico de calidad: conjunto original (15 variables) ===
   filas: 50411
@@ -114,3 +114,66 @@ Variables transformadas      0       14
        Variables nuevas      0       10
   Variables nuevas: ['fecha', 'decada', 'grupo_comparacion', 'poblacion_millones', 'pib_per_capita_usd', 'tramo_co2_per_capita', 'variacion_co2_vs_1990_pct', 'pct_carbon', 'combustible_principal', 'valor_atipico']
 Evidencias guardadas en reportes\evidencias/
+
+######## Análisis descriptivo sobre datos\procesados\dataset_limpio.csv ########
+Dataset limpio cargado: 7538 filas y 25 columnas (sin registros atípicos).
+
+=== Estadísticas descriptivas ===
+                 variable  anio   n     media   mediana   minimo     maximo      rango  desv_estandar       q1        q3  rango_intercuartil  coef_variacion_pct
+                   co2_mt  2024 216   173.176    10.783    0.000  12289.037  12289.037        935.189    1.442    54.394              52.951             540.021
+         co2_per_capita_t  2024 214     4.632     3.210    0.054     41.271     41.217          5.513    1.013     5.980               4.966             119.018
+       co2_por_pib_kg_usd  2022 164     0.248     0.191    0.059      1.390      1.331          0.188    0.137     0.297               0.160              75.698
+       pib_per_capita_usd  2022 164 19148.640 12606.000  689.000 131991.000 131302.000      20047.490 4429.750 27423.250           22993.500             104.694
+       poblacion_millones  2024 214    38.103     7.058    0.002   1450.936   1450.934        144.272    0.989    26.952              25.963             378.640
+               pct_carbon  2024 214    13.614     0.970    0.000     91.370     91.370         20.937    0.000    20.772              20.772             153.790
+variacion_co2_vs_1990_pct  2024 209   278.220   115.850 -100.000  11206.450  11306.450        883.562   -3.420   275.520             278.940             317.577
+
+=== Frecuencias de variables categóricas (2024) ===
+             variable              categoria  frecuencia  porcentaje
+ tramo_co2_per_capita            bajo (<2 t)          79       36.57
+ tramo_co2_per_capita          medio (2-5 t)          67       31.02
+ tramo_co2_per_capita          alto (5-10 t)          43       19.91
+ tramo_co2_per_capita       muy alto (>10 t)          25       11.57
+ tramo_co2_per_capita            desconocido           2        0.93
+combustible_principal               petroleo         161       74.54
+combustible_principal                 carbon          32       14.81
+combustible_principal                    gas          21        9.72
+combustible_principal            desconocido           2        0.93
+    grupo_comparacion        Resto del mundo         175       81.02
+    grupo_comparacion                   OCDE          35       16.20
+    grupo_comparacion America Latina (pares)           5        2.31
+    grupo_comparacion                  Chile           1        0.46
+
+  Verificación NumPy vs describe(): diferencia máxima = 0.0005 (solo redondeo a 3 decimales)
+  Correlación log10(PIB per cápita) vs CO2 per cápita (2022, n=164): r = 0.657
+
+=== Indicadores automatizados ===
+   1. Registros válidos para comparar: 7472.0 registros
+      7472 de 7538 filas permiten comparar total y per cápita; en 2024 hay 214 países comparables.
+   2. Concentración: % del CO2 emitido por los 10 mayores emisores (2024): 71.06 %
+      10 de 216 países (4.6 %) concentran el 71.1 % del CO2; encabezan China, United States, India.
+   3. Puesto de Chile en CO2 per cápita (2024): 87.0 de 214
+      Chile (3.98 t/persona) ocupa el puesto 87 de 214: emite más por habitante que el 59 % de los países.
+   4. Brecha de CO2 per cápita de Chile frente a sus pares latinoamericanos (2024): 48.25 %
+      Chile (3.98 t) emite 48 % más por habitante que sus pares (2.69 t), pero menos que la OCDE (8.06 t) y el mundo (4.59 t).
+   5. Variación del CO2 de Chile 1990-2024: 139.23 %
+      Las emisiones de Chile crecieron 139 % (32.9 a 78.7 Mt), más del doble que el total mundial (69 %).
+   6. Variación del CO2 por carbón de Chile desde su máximo (2019-2024): -64.94 %
+      El CO2 por carbón cayó de 31.0 Mt (2019) a 10.9 Mt; su participación bajó a 13.8 % del total por el retiro de centrales a carbón.
+   7. % de países sobre el promedio mundial per cápita (2024): 35.98 %
+      Solo el 36 % de los países supera el promedio mundial de 4.59 t: pocos países de altas emisiones elevan el promedio.
+   8. Combustible principal más frecuente (2024): 74.54 % (petróleo)
+      El petróleo es la principal fuente de CO2 en 161 países (75 %); el carbón domina en 32.
+   9. Máximo CO2 per cápita y país asociado (2024): 41.27 t/persona (Qatar)
+      Qatar emite 41.3 t por habitante, 13 veces la mediana mundial (3.21 t).
+  10. Intensidad de carbono de Chile frente a la mediana OCDE (2022): 15.06 %
+      Chile emite 0.191 kg por dólar de PIB y la mediana OCDE es 0.166 kg: es más intensivo en carbono que el país OCDE típico.
+
+=== Gráficos ===
+  Gráfico guardado: resultados\graficos\grafico_01.png
+  Gráfico guardado: resultados\graficos\grafico_02.png
+  Gráfico guardado: resultados\graficos\grafico_03.png
+  Gráfico guardado: resultados\graficos\grafico_04.png
+  Gráfico guardado: resultados\graficos\grafico_05.png
+
+Resultados exportados en resultados/: estadisticas.csv, frecuencias.csv, indicadores.csv y 5 gráficos PNG.

@@ -1,7 +1,11 @@
-"""Pipeline del Avance 2: carga, diagnóstico, limpieza, nulos,
-transformaciones, validación y exportación. Ejecutar desde la raíz:
+"""Pipeline completo del proyecto. Ejecutar desde la raíz:
 
     python main.py
+
+Avance 2: carga, diagnóstico, limpieza, nulos, transformaciones, validación
+y exportación de datos/procesados/dataset_limpio.csv.
+Avance 3: estadísticas descriptivas, indicadores y gráficos calculados sobre
+ese dataset limpio y exportados en resultados/.
 """
 
 import os
@@ -9,14 +13,21 @@ import os
 import pandas as pd
 
 from src.carga import VARIABLES_ANALISIS, cargar_datos, seleccionar_variables
+from src.estadisticas import (calcular_correlacion, calcular_estadisticas,
+                              calcular_frecuencias, cargar_dataset_limpio,
+                              mostrar_estadisticas, verificar_con_describe)
+from src.indicadores import calcular_indicadores
 from src.limpieza import limpiar_datos, tratar_nulos
 from src.transformaciones import NOMBRES_CON_UNIDAD, aplicar_transformaciones
 from src.validaciones import (detalle_fuera_de_rango, diagnosticar_calidad,
                               validar_dataset_final)
+from src.visualizaciones import generar_graficos
 
 RUTA_ORIGINAL = os.path.join("datos", "originales", "owid-co2-data.csv")
 RUTA_LIMPIO = os.path.join("datos", "procesados", "dataset_limpio.csv")
 CARPETA_EVIDENCIAS = os.path.join("reportes", "evidencias")
+CARPETA_RESULTADOS = "resultados"
+CARPETA_GRAFICOS = os.path.join(CARPETA_RESULTADOS, "graficos")
 
 COLUMNAS_FINALES = [
     "pais", "iso_code", "anio", "fecha", "decada", "grupo_comparacion",
@@ -53,15 +64,13 @@ def guardar_evidencia(tabla, nombre):
     tabla.to_csv(os.path.join(CARPETA_EVIDENCIAS, nombre), index=False, encoding="utf-8")
 
 
-def main():
-    pd.set_option("display.width", 160)
-    pd.set_option("display.max_columns", 30)
-
+def ejecutar_limpieza():
+    """Avance 2. Retorna True si el dataset limpio se exportó."""
     # 1. Carga
     datos_originales = cargar_datos(RUTA_ORIGINAL)
     if datos_originales is None:
         print("El programa finalizó sin procesar los datos.")
-        return
+        return False
     print(f"Carga realizada: {datos_originales.shape[0]} filas y "
           f"{datos_originales.shape[1]} columnas en el archivo original.")
     datos = seleccionar_variables(datos_originales)
@@ -122,6 +131,38 @@ def main():
     guardar_evidencia(resumen_despues.reset_index(names="variable"), "diagnostico_final.csv")
     guardar_evidencia(comparacion, "comparacion_antes_despues.csv")
     print(f"Evidencias guardadas en {CARPETA_EVIDENCIAS}/")
+    return True
+
+
+def ejecutar_analisis():
+    """Avance 3: lee el dataset limpio y genera estadísticas, indicadores y gráficos."""
+    print(f"\n######## Análisis descriptivo sobre {RUTA_LIMPIO} ########")
+    datos = cargar_dataset_limpio(RUTA_LIMPIO)
+    print(f"Dataset limpio cargado: {datos.shape[0]} filas y {datos.shape[1]} columnas "
+          "(sin registros atípicos).")
+    os.makedirs(CARPETA_RESULTADOS, exist_ok=True)
+
+    estadisticas = calcular_estadisticas(datos)
+    frecuencias = calcular_frecuencias(datos)
+    mostrar_estadisticas(estadisticas, frecuencias)
+    verificar_con_describe(datos, estadisticas)
+    calcular_correlacion(datos)
+    estadisticas.to_csv(os.path.join(CARPETA_RESULTADOS, "estadisticas.csv"), index=False, encoding="utf-8")
+    frecuencias.to_csv(os.path.join(CARPETA_RESULTADOS, "frecuencias.csv"), index=False, encoding="utf-8")
+
+    indicadores = calcular_indicadores(datos)
+    indicadores.to_csv(os.path.join(CARPETA_RESULTADOS, "indicadores.csv"), index=False, encoding="utf-8")
+
+    graficos = generar_graficos(datos, CARPETA_GRAFICOS)
+    print(f"\nResultados exportados en {CARPETA_RESULTADOS}/: estadisticas.csv, frecuencias.csv, "
+          f"indicadores.csv y {len(graficos)} gráficos PNG.")
+
+
+def main():
+    pd.set_option("display.width", 160)
+    pd.set_option("display.max_columns", 30)
+    if ejecutar_limpieza():
+        ejecutar_analisis()
 
 
 if __name__ == "__main__":

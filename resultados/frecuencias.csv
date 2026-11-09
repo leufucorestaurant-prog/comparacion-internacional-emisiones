@@ -1,0 +1,14 @@
+variable,categoria,frecuencia,porcentaje
+tramo_co2_per_capita,bajo (<2 t),79,36.57
+tramo_co2_per_capita,medio (2-5 t),67,31.02
+tramo_co2_per_capita,alto (5-10 t),43,19.91
+tramo_co2_per_capita,muy alto (>10 t),25,11.57
+tramo_co2_per_capita,desconocido,2,0.93
+combustible_principal,petroleo,161,74.54
+combustible_principal,carbon,32,14.81
+combustible_principal,gas,21,9.72
+combustible_principal,desconocido,2,0.93
+grupo_comparacion,Resto del mundo,175,81.02
+grupo_comparacion,OCDE,35,16.2
+grupo_comparacion,America Latina (pares),5,2.31
+grupo_comparacion,Chile,1,0.46
