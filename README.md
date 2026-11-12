@@ -32,7 +32,16 @@ pip install -r requirements.txt
 python main.py
 ```
 
-El programa usa solo rutas relativas. Al terminar genera:
+Para abrir el **dashboard interactivo** (Avance 4):
+
+```bash
+streamlit run app.py
+```
+
+Se abre en el navegador en `http://localhost:8501`. Necesita que exista
+`datos/procesados/dataset_limpio.csv` (lo genera `python main.py`).
+
+`main.py` usa solo rutas relativas. Al terminar genera:
 
 - `datos/procesados/dataset_limpio.csv`: conjunto limpio y validado.
 - `reportes/evidencias/*.csv`: diagnóstico inicial y final, registro de
@@ -62,6 +71,8 @@ Datos originales → Carga → Diagnóstico → Limpieza → Tratamiento de nulo
 | `src/estadisticas.py`     | Estadísticas descriptivas y frecuencias        |
 | `src/indicadores.py`      | Indicadores automatizados del proyecto         |
 | `src/visualizaciones.py`  | Gráficos con Matplotlib Pyplot (PNG)           |
+| `src/proyeccion.py`       | Series por país o grupo y modelos de proyección |
+| `app.py`                  | Dashboard interactivo (Streamlit)              |
 | `main.py`                 | Ejecución ordenada del pipeline                |
 
 ## Principales decisiones
@@ -82,6 +93,7 @@ Datos originales → Carga → Diagnóstico → Limpieza → Tratamiento de nulo
 - `reportes/avance_1.pdf`: definición del problema y carga inicial.
 - `reportes/avance_2.pdf`: limpieza, nulos, transformaciones y validación.
 - `reportes/avance_3.pdf`: estadística descriptiva, indicadores y gráficos.
+- `reportes/avance_4.pdf`: dashboard interactivo y modelos de proyección.
 
 ## Gráficos (Avance 3)
 
@@ -92,3 +104,20 @@ Datos originales → Carga → Diagnóstico → Limpieza → Tratamiento de nulo
 | `grafico_03.png` | Dispersión   | PIB per cápita vs CO₂ per cápita (2022)              |
 | `grafico_04.png` | Caja         | Distribución del CO₂ per cápita por grupo (2024)     |
 | `grafico_05.png` | Área apilada | CO₂ de Chile por combustible, 1990–2024              |
+
+## Dashboard (Avance 4)
+
+`app.py` (Streamlit) permite explorar los datos y proyectarlos sin modificar el código.
+
+| Elemento | Implementación |
+|----------|----------------|
+| Filtros | Variable analizada, país principal, países o grupos de comparación (pares latinoamericanos, OCDE, mundo) y período |
+| Indicadores dinámicos | Último valor, variación del período, crecimiento anual promedio, promedio y máximo; en la proyección, valor proyectado, error MAPE y R² |
+| Gráficos | Evolución histórica, ranking del último año, composición por combustible y proyección |
+| Modelos | Regresión lineal (`LinearRegression`), promedio móvil (`rolling().mean()`) y tasa de crecimiento promedio, o los tres comparados |
+| Parámetros | Modelo, años a proyectar (hasta 2050), años de historia usados para ajustar y ventana del promedio móvil |
+
+Tiene tres vistas: **Exploración histórica**, **Proyección** (incluye validación
+retrospectiva: oculta los últimos 5 años y mide el error de cada modelo) e
+**Interpretación** (respuestas generadas a partir de los filtros). Los modelos
+están en `src/proyeccion.py`. Las capturas del dashboard están en `reportes/capturas/`.
